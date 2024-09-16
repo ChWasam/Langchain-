@@ -1,19 +1,25 @@
 # Example Source: https://python.langchain.com/v0.2/docs/integrations/memory/google_firestore/
-
+#  Here we will start saving our massages to the cloud using Google Firestore.
+#  We will use the langchain_google_firestore package to save our chat history.
 from dotenv import load_dotenv
-from google.cloud import firestore
+from google.cloud import firestore  # type: ignore
+# Also add "poetry add google-cloud-firestore-stubs" to the pyproject.toml file
 from langchain_google_firestore import FirestoreChatMessageHistory
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.schema import AIMessage
 
+#  Explore other options from lanchain docs. All you need to do is to store messages 
+#  We have Fire base as a google cloud and we want our local computer to communicate with the cloud.
 """
 Steps to replicate this example:
 1. Create a Firebase account
 2. Create a new Firebase project
     - Copy the project ID
 3. Create a Firestore database in the Firebase project
+#  We have Fire base as a google cloud and we want our local computer to communicate with the cloud.Hence we need to install the google cloud sdk
 4. Install the Google Cloud CLI on your computer
     - https://cloud.google.com/sdk/docs/install
-    - Authenticate the Google Cloud CLI with your Google account
+    - Authenticate the Google Cloud CLI with your Google account to access the Firebase project 
         - https://cloud.google.com/docs/authentication/provide-credentials-adc#local-dev
     - Set your default project to the new Firebase project you created
 5. Enable the Firestore API in the Google Cloud Console:
@@ -23,8 +29,8 @@ Steps to replicate this example:
 load_dotenv()
 
 # Setup Firebase Firestore
-PROJECT_ID = "langchain-demo-abf48"
-SESSION_ID = "user_session_new"  # This could be a username or a unique ID
+PROJECT_ID = "langchain-demo-82f9f"
+SESSION_ID = "user_session_new1"  # This could be a username or a unique ID
 COLLECTION_NAME = "chat_history"
 
 # Initialize Firestore Client
@@ -42,7 +48,14 @@ print("Chat History Initialized.")
 print("Current Chat History:", chat_history.messages)
 
 # Initialize Chat Model
-model = ChatOpenAI()
+model = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    client_options=None,
+    transport=None,
+    additional_headers=None,
+    client=None,
+    async_client=None,
+)
 
 print("Start chatting with the AI. Type 'exit' to quit.")
 
@@ -54,6 +67,7 @@ while True:
     chat_history.add_user_message(human_input)
 
     ai_response = model.invoke(chat_history.messages)
-    chat_history.add_ai_message(ai_response.content)
+    ai_message = AIMessage(content=ai_response.content)
+    chat_history.add_ai_message(ai_message)
 
     print(f"AI: {ai_response.content}")

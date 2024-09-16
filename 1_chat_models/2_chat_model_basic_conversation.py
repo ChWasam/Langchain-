@@ -6,7 +6,7 @@ from langchain_openai import ChatOpenAI
 load_dotenv()
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model="gpt-3.5-turbo")
 
 # SystemMessage:
 #   Message for priming AI behavior, usually passed in as the first of a sequenc of input messages.
@@ -22,6 +22,10 @@ result = model.invoke(messages)
 print(f"Answer from AI: {result.content}")
 
 
+#  Here we continued on the conversation like what we do in chat gpt
+#  Basic conversation 
+#  prompt => Get Response => Provide feedback 
+#  HENCE STORING THE MESSAGE HISTORY IS REALLY IMP
 # AIMessage:
 #   Message from an AI.
 messages = [
