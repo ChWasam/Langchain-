@@ -5,12 +5,12 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
 
 # # PART 1: Create a ChatPromptTemplate using a template string
-# template = "Tell me a joke about {topic}."
-# prompt_template = ChatPromptTemplate.from_template(template)
+template = "Tell me a joke about {topic}."
+prompt_template = ChatPromptTemplate.from_template(template)  
 
-# print("-----Prompt from Template-----")
-# prompt = prompt_template.invoke({"topic": "cats"})
-# print(prompt)
+print("-----Prompt from Template-----")
+prompt = prompt_template.invoke({"topic": "cats"})
+print(prompt)
 
 # # PART 2: Prompt with Multiple Placeholders
 # template_multiple = """You are a helpful assistant.
@@ -22,7 +22,7 @@ from langchain_core.messages import HumanMessage
 # print(prompt)
 
 
-# PART 3: Prompt with System and Human Messages (Using Tuples)
+# # PART 3: Prompt with System and Human Messages (Using Tuples)
 # messages = [
 #     ("system", "You are a comedian who tells jokes about {topic}."),
 #     ("human", "Tell me {joke_count} jokes."),
@@ -34,22 +34,27 @@ from langchain_core.messages import HumanMessage
 
 # # Extra Informoation about Part 3.
 # # This does work:
+# # Any where you are going to use string interpretation you have to use tuples 
 # messages = [
 #     ("system", "You are a comedian who tells jokes about {topic}."),
-#     HumanMessage(content="Tell me 3 jokes."),
+#     HumanMessage(content="Tell me 5 jokes."),
 # ]
-# prompt_template = ChatPromptTemplate.from_messages(messages)
+# prompt_template = ChatPromptTemplate.from_messages(messages) 
+# # Error because "HumanMessage(content="Tell me 3 jokes.")", we are using this instead of tuple 
 # prompt = prompt_template.invoke({"topic": "lawyers"})
 # print("\n----- Prompt with System and Human Messages (Tuple) -----\n")
 # print(prompt)
 
 
 # This does NOT work:
-messages = [
-    ("system", "You are a comedian who tells jokes about {topic}."),
-    HumanMessage(content="Tell me {joke_count} jokes."),
-]
-prompt_template = ChatPromptTemplate.from_messages(messages)
-prompt = prompt_template.invoke({"topic": "lawyers", "joke_count": 3})
-print("\n----- Prompt with System and Human Messages (Tuple) -----\n")
-print(prompt)
+# messages = [
+#     ("system", "You are a comedian who tells jokes about {topic}."),
+#     HumanMessage(content="Tell me {joke_count} jokes."),
+# ]
+# prompt_template = ChatPromptTemplate.from_messages(messages)
+# prompt = prompt_template.invoke({"topic": "lawyers", "joke_count": 6})
+# print("\n----- Prompt with System and Human Messages (Tuple) -----\n")
+# print(prompt)
+
+#  Result : messages=[SystemMessage(content='You are a comedian who tells jokes about lawyers.'), HumanMessage(content='Tell me {joke_count} jokes.')]
+#  Here it never did the replacing part
