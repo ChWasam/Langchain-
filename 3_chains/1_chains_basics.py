@@ -7,7 +7,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 # Load environment variables from .env
 load_dotenv()
 
-# Create a ChatOpenAI model
+# Create a gemini model
 model = ChatGoogleGenerativeAI(model="gemini-1.5-flash",
                                 client_options=None,
                                 transport=None,
