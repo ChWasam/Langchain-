@@ -25,9 +25,7 @@ Steps to replicate this example:
 5. Enable the Firestore API in the Google Cloud Console:
     - https://console.cloud.google.com/apis/enableflow?apiid=firestore.googleapis.com&project=crewai-automation
 
-
-Guide to solve the ADC error:=> https://chatgpt.com/share/66e8890f-2b64-800f-97a4-1e53f64a3dd0
-zsh: command not found: gcloud => SOLUTION https://chatgpt.com/share/66e8899f-58b8-800f-8508-c89e8c76534b
+Details in the README.md file of this folder.
 """
 
 load_dotenv()
