@@ -21,7 +21,7 @@ query = "How did Juliet die?"
 # Retrieve relevant documents based on the query
 retriever = db.as_retriever(
     search_type="similarity_score_threshold",
-    search_kwargs={"k": 3, "score_threshold": 0.1},
+    search_kwargs={"k": 3, "score_threshold": 0.3},
 )
 relevant_docs = retriever.invoke(query)
 

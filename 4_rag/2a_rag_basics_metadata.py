@@ -1,3 +1,6 @@
+# Meta data is important because LLMs hallucinate
+# Making LLM give source of info it is passing back to user with the results 
+
 import os
 
 from langchain.text_splitter import CharacterTextSplitter
@@ -26,6 +29,7 @@ if not os.path.exists(persistent_directory):
 
     # List all text files in the directory
     book_files = [f for f in os.listdir(books_dir) if f.endswith(".txt")]
+    print(book_files)
 
     # Read the text content from each file and store it with metadata
     documents = []
