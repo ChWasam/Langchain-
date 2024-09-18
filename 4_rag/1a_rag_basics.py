@@ -26,17 +26,26 @@ if not os.path.exists(persistent_directory):
 
     # Split the document into chunks
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    #  Chunk the each section of the book every 1000 characters
+    #  To keep the relationship between 2 chunks we use chunk_overlap 
+    #  Avoid cut off btw paragraphs 
+    #  Chunking from the middle of the sentence will result in a scenario where it is difficult to understand sementically the context of the sentence.  
+    #  Overlap help you get a better performance results.
+    # chunk_overlap=200 / chunk_overlap=400 are common values to start with
+
     docs = text_splitter.split_documents(documents)
 
     # Display information about the split documents
     print("\n--- Document Chunks Information ---")
     print(f"Number of document chunks: {len(docs)}")
     print(f"Sample chunk:\n{docs[0].page_content}\n")
+    # .page_content is likely an attribute of the chunk, which contains the actual content of the document chunk.
 
     # Create embeddings
     print("\n--- Creating embeddings ---")
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small"
+        #  BUT Large models have lot more values hence we get lot more precise with our embeddings 
     )  # Update to a valid embedding model if needed
     print("\n--- Finished creating embeddings ---")
 
