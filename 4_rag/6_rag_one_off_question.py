@@ -43,6 +43,8 @@ combined_input = (
     + "\n\n".join([doc.page_content for doc in relevant_docs])
     + "\n\nPlease provide an answer based only on the provided documents. If the answer is not found in the documents, respond with 'I'm not sure'."
 )
+# join() is a method in Python that takes a list of strings and concatenates them into one string, using the string specified before .join() as the separator.
+#  In this case, "\n\n" (two newline characters) is used as the separator.
 
 # Create a ChatOpenAI model
 model = ChatOpenAI(model="gpt-4o")
