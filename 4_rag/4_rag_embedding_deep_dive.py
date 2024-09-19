@@ -57,7 +57,10 @@ create_vector_store(docs, openai_embeddings, "chroma_db_openai")
 # Uses models from the Hugging Face library.
 # Ideal for leveraging a wide variety of models for different tasks.
 # Note: Running Hugging Face models locally on your machine incurs no direct cost other than using your computational resources.
+# Its a very big file almost half the gigabyte.
 # Note: Find other models at https://huggingface.co/models?other=embeddings
+#  Main benefit with these models is that you can run them locally for free.
+#  Performance is not very good, but it is free. Hence mostly people don't use it in production.
 print("\n--- Using Hugging Face Transformers ---")
 huggingface_embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2"
