@@ -1,3 +1,5 @@
+# Searching for our documents in vector store.
+
 import os
 
 from dotenv import load_dotenv
@@ -49,13 +51,22 @@ query = "How did Juliet die?"
 
 # Showcase different retrieval methods
 
+#  Definingwhat kind of search models we want to use like "similarity", "mmr" and "similarity_score_threshold". And also any parameters it required like "k", "fetch_k" and "lambda_mult". 
+
 # 1. Similarity Search
 # This method retrieves documents based on vector similarity.
 # It finds the most similar documents to the query vector based on cosine similarity.
 # Use this when you want to retrieve the top k most similar documents.
+#  Use this if you know every question you are asking is relevant to database. Hence you really don't need to worry about threshold.   
 print("\n--- Using Similarity Search ---")
-query_vector_store("chroma_db_with_metadata", query,
-                   embeddings, "similarity", {"k": 3})
+query_vector_store(
+    "chroma_db_with_metadata",
+    query,
+    embeddings,
+    "similarity",
+    {"k": 3}
+)
+
 
 # 2. Max Marginal Relevance (MMR)
 # This method balances between selecting documents that are relevant to the query and diverse among themselves.
@@ -65,6 +76,8 @@ query_vector_store("chroma_db_with_metadata", query,
 # Note: Relevance measures how closely documents match the query.
 # Note: Diversity ensures that the retrieved documents are not too similar to each other,
 #       providing a broader range of information.
+
+
 print("\n--- Using Max Marginal Relevance (MMR) ---")
 query_vector_store(
     "chroma_db_with_metadata",
@@ -73,6 +86,8 @@ query_vector_store(
     "mmr",
     {"k": 3, "fetch_k": 20, "lambda_mult": 0.5},
 )
+
+
 
 # 3. Similarity Score Threshold
 # This method retrieves documents that exceed a certain similarity score threshold.
@@ -88,3 +103,6 @@ query_vector_store(
 )
 
 print("Querying demonstrations with different search types completed.")
+
+
+
