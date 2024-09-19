@@ -51,7 +51,7 @@ query = "How did Juliet die?"
 
 # Showcase different retrieval methods
 
-#  Definingwhat kind of search models we want to use like "similarity", "mmr" and "similarity_score_threshold". And also any parameters it required like "k", "fetch_k" and "lambda_mult". 
+#  Defining what kind of search methods  we want to use like "similarity", "mmr" and "similarity_score_threshold". And also any parameters it required like "k", "fetch_k" and "lambda_mult". 
 
 # 1. Similarity Search
 # This method retrieves documents based on vector similarity.
