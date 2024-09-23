@@ -1,5 +1,5 @@
 import os
-
+import typing
 from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_react_agent
@@ -9,7 +9,8 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.tools import Tool
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain.agents import BaseSingleActionAgent, BaseMultiActionAgent
+from langchain_openai import   OpenAIEmbeddings,ChatOpenAI
 
 # Load environment variables from .env file
 load_dotenv()
@@ -45,7 +46,7 @@ retriever = db.as_retriever(
 )
 
 # Create a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+llm: ChatOpenAI= ChatOpenAI(model="gpt-3.5-turbo")
 
 # Contextualize question prompt
 # This system prompt helps the AI understand that it should reformulate the question
@@ -126,10 +127,13 @@ agent = create_react_agent(
 )
 
 agent_executor = AgentExecutor.from_agent_and_tools(
-    agent=agent, tools=tools, handle_parsing_errors=True, verbose=True,
+    agent=typing.cast(typing.Union[BaseSingleActionAgent, BaseMultiActionAgent], agent),
+    tools=tools,
+    handle_parsing_errors=True,
+    verbose=True,
 )
 
-chat_history = []
+chat_history: list[AIMessage|HumanMessage] = []
 while True:
     query = input("You: ")
     if query.lower() == "exit":
