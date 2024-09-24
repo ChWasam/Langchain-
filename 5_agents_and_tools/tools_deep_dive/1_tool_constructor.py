@@ -19,7 +19,8 @@ def greet_user(name: str) -> str:
 def reverse_string(text: str) -> str:
     """Reverses the given string."""
     return text[::-1]
-
+# text[start:stop:step] is the general slicing format.
+# By using [::-1], the slicing starts at the end of the string and moves backward (-1 step), effectively reversing the string.
 
 def concatenate_strings(a: str, b: str) -> str:
     """Concatenates two strings."""
