@@ -3,13 +3,14 @@
 # Import necessary libraries
 import os
 from typing import Type
-
+import typing
 from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain_core.tools import BaseTool
 from langchain_openai import ChatOpenAI
+from langchain.agents import BaseSingleActionAgent, BaseMultiActionAgent
 
 
 load_dotenv()
@@ -39,7 +40,7 @@ class SimpleSearchTool(BaseTool):
         query: str,
     ) -> str:
         """Use the tool."""
-        from tavily import TavilyClient
+        from tavily import TavilyClient  # type: ignore
 
         api_key = os.getenv("TAVILY_API_KEY")
         client = TavilyClient(api_key=api_key)
@@ -65,12 +66,12 @@ class MultiplyNumbersTool(BaseTool):
 
 # Create tools using the Pydantic subclass approach
 tools = [
-    SimpleSearchTool(),
-    MultiplyNumbersTool(),
+    SimpleSearchTool(name="simple_search", description="useful for when you need to answer questions about current events"),
+    MultiplyNumbersTool(name="multiply_numbers", description="useful for multiplying two numbers"),
 ]
 
 # Initialize a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="gpt-3.5-turbo")
 
 # Pull the prompt template from the hub
 prompt = hub.pull("hwchase17/openai-tools-agent")
@@ -84,7 +85,7 @@ agent = create_tool_calling_agent(
 
 # Create the agent executor
 agent_executor = AgentExecutor.from_agent_and_tools(
-    agent=agent,
+    agent=typing.cast(typing.Union[BaseSingleActionAgent, BaseMultiActionAgent], agent),
     tools=tools,
     verbose=True,
     handle_parsing_errors=True,

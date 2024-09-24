@@ -1,11 +1,13 @@
 # Documentation: https://python.langchain.com/v0.1/docs/modules/tools/custom_tools/
 
 # Import necessary libraries
+import typing
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI
+from langchain.agents import BaseSingleActionAgent, BaseMultiActionAgent
 
 
 # Simple Tool with one parameter without args_schema
@@ -56,7 +58,7 @@ tools = [
 ]
 
 # Initialize a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="gpt-3.5-turbo")
 
 # Pull the prompt template from the hub
 prompt = hub.pull("hwchase17/openai-tools-agent")
@@ -71,7 +73,7 @@ agent = create_tool_calling_agent(
 
 # Create the agent executor
 agent_executor = AgentExecutor.from_agent_and_tools(
-    agent=agent,  # The agent to execute
+    agent=typing.cast(typing.Union[BaseSingleActionAgent, BaseMultiActionAgent], agent),  # The agent to execute
     tools=tools,  # List of tools available to the agent
     verbose=True,  # Enable verbose logging
     handle_parsing_errors=True,  # Handle parsing errors gracefully
