@@ -9,7 +9,7 @@ load_dotenv()
 model = ChatOpenAI(model="gpt-3.5-turbo")
 
 # SystemMessage:
-#   Message for priming AI behavior, usually passed in as the first of a sequenc of input messages.
+#   Message for priming AI behavior, usually passed in as the first of a sequence of input messages.
 # HumanMessagse:
 #   Message from a human to the AI model.
 messages = [
