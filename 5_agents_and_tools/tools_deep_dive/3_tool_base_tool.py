@@ -39,6 +39,8 @@ class SimpleSearchTool(BaseTool):
         self,
         query: str,
     ) -> str:
+        # You can also define the output as a pydantic model and if it fails  during a run to 
+        # generate proper response  it will redo it 
         """Use the tool."""
         from tavily import TavilyClient  # type: ignore
 

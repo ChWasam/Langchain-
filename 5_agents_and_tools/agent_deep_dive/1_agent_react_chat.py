@@ -55,6 +55,7 @@ memory = ConversationBufferMemory(
 )
 
 # Initialize agent
+#  Last time we used the react agent which is a single action agent? now we are using the structured chat agent which is a multi-action agent?  
 agent = create_structured_chat_agent(llm=llm, tools=tools, prompt=prompt)
 
 # Create the agent executor

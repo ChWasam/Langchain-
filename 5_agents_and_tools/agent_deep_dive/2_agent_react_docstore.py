@@ -118,6 +118,8 @@ tools = [
         description="useful for when you need to answer questions about the context",
     )
 ]
+# kwargs.get("chat_history", []): This line is accessing the keyword arguments (kwargs) passed to the function. It looks for a key called "chat_history" in kwargs. If "chat_history" exists in kwargs, it retrieves its value. If it doesn't exist, it defaults to an empty list ([]).
+# Purpose: This ensures that even if chat_history is not provided as a keyword argument when calling the lambda function, the code can still function by defaulting to an empty list
 
 # Create the ReAct Agent with document store retriever
 agent = create_react_agent(
