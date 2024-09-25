@@ -44,7 +44,7 @@ for i, doc in enumerate(relevant_docs, 1):
 
 #  The enumerate() function in Python allows you to loop over an iterable (like a list, tuple, or string) and keep track of both the index and the element at the same time. This is particularly useful when you want to know the position of an element as you iterate through it.
 
-# In a for loop, when you write for i, doc in enumerate(relevant_docs, 1), you're using tuple unpacking. The enumerate() function returns a tuple for each iteration where:
+# In a for loop, when you write< for i, doc in enumerate(relevant_docs, 1)> , you're using tuple unpacking. The enumerate() function returns a tuple for each iteration where:
 # The first element of the tuple is the index (i).
 # The second element of the tuple is the current document object (doc).
 #  More detail on notion

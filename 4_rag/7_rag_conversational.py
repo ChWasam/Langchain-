@@ -52,6 +52,7 @@ contextualize_q_system_prompt = (
     "without the chat history. Do NOT answer the question, just "
     "reformulate it if needed and otherwise return it as is."
 )
+# Simply you are getting the question just rephrase it for the vector store so that we can retrieve the proper information
 
 # Create a prompt template for contextualizing questions
 contextualize_q_prompt = ChatPromptTemplate.from_messages(
@@ -68,6 +69,7 @@ contextualize_q_prompt = ChatPromptTemplate.from_messages(
 history_aware_retriever = create_history_aware_retriever(
     llm, retriever, contextualize_q_prompt
 )
+#  The retriever used here will also bring relevant information from the vector store
 # It uses the LLM to reformulate the user’s question based on the chat history, making sure that any references to past messages are resolved.
 # The retriever then searches for relevant documents or past conversation snippets based on this contextualized question.
 # This ensures that the LLM can answer the question using both retrieved information and its own capabilities.
@@ -90,7 +92,7 @@ qa_system_prompt = (
     "{context}"
 )
 
-#  According to my understanding the context is linked to history_aware_retriever through create_retrieval_chain => create_retrieval_chain(history_aware_retriever, question_answer_chain)
+#  According to my understanding the context is linked to history_aware_retriever through create_retrieval_chain => create_retrieval_chain(history_aware_retriever, question_answer_chain)and 
 
 
 # Create a prompt template for answering questions
@@ -109,6 +111,7 @@ question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
 # Create a retrieval chain that combines the history-aware retriever and the question answering chain
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+#  It is known as history_aware_retriever because based on the "conversation history + current input )it will be able to retrieve the information from the vector store
 # history_aware_retriever => pulling information from vector store 
 # question_answer_chain => Taking in the user input and actually responding answers to users and it all has context(information from vectorstore and conversation history) 
 
@@ -120,11 +123,11 @@ rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chai
 # 2. we want to have awareness of all the conversation we have uptil this point => question_answer_chain
 # Based on information from the vector store and the conversation history, we will be able to generate a result
 # FEW STEPS REQUIRED TO SET THIS UP
-#   we need to be able to grab information from vectorstore and conversation history
-#   We will be using create_stuff_documents_chain, which will take in the (bunch of documents) + (what is going on) and pass/feed them into the LLM 
+#   we need to be able to grab information from (vectorstore and conversation history)
+#   We will be using create_stuff_documents_chain, which will take in the <(bunch of documents)related to current query  + (what is going on)>  and pass/feed them into the LLM 
 #  We also need to give to the LLM  what is going on (conversation) so the LLM is aware of what it needs to do  
 #  The above part will help in responding to questions
-#  But where does this document and conversation come from ? 
+#  But where does this (document and conversation) come from ? 
 #  For that we need to understand the history_aware_retriever
 #  This is where we will start  working with a vector store 
 # llm => doing the thinking and generating the response

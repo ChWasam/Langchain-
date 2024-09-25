@@ -47,7 +47,7 @@ combined_input = (
 #  In this case, "\n\n" (two newline characters) is used as the separator.
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model="gpt-3.5-turbo")
 
 # Define the messages for the model
 messages = [
