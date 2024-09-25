@@ -61,7 +61,6 @@ def combine_pros_cons(pros, cons):
 pros_branch_chain = (
     RunnableLambda(lambda x: analyze_pros(x)) | model | StrOutputParser()
 )
-
 cons_branch_chain = (
     RunnableLambda(lambda x: analyze_cons(x)) | model | StrOutputParser()
 )
@@ -74,7 +73,7 @@ chain = (
     | RunnableParallel(branches={"pros": pros_branch_chain, "cons": cons_branch_chain})
     | RunnableLambda(lambda x: combine_pros_cons(x["branches"]["pros"], x["branches"]["cons"]))
 )
-#  Previously when you will run pro chain it will 30 s and then cons chain will run for 30 s
+#  Previously when you will run pro chain it takes 30 s and then cons chain will run for 30 s
 #  But now using parallel chain it will run both chains at the same time and will take 30 s
 # Hence reducing the time and are more efficient
 #  For Applications require speedy output we can use parallel chains
@@ -93,9 +92,9 @@ print(result)
 
 # Ah, I see! Let's clarify how both sides of the or are giving results in this case.
 
-# The key point here is understanding how the or operator works in Python:
+# The key point here is understanding how 'or' operator works in Python:
 
-# The or operator: It evaluates the left-hand side first. If it's truthy (i.e., not None, False, 0, or an empty value), the left-hand side is returned, and the right-hand side is not evaluated. However, if the left-hand side is falsy (like None, which is the case for the print() function), then Python proceeds to evaluate and return the right-hand side.
+# The 'or' operator: It evaluates the left-hand side first. If it's truthy (i.e., not None, False, 0, or an empty value), the left-hand side is returned, and the right-hand side is not evaluated. However, if the left-hand side is falsy (like None, which is the case for the print() function), then Python proceeds to evaluate and return the right-hand side.
 # Why both sides are evaluated here:
 # print("final output", x): The print() function executes and prints "final output" along with the value of x, but it always returns None.
 # combine_pros_cons(...): Since print() returns None, Python evaluates the right-hand side of the or statement, i.e., combine_pros_cons(...), and returns its result.

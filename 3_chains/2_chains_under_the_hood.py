@@ -28,6 +28,9 @@ prompt_template = ChatPromptTemplate.from_messages(
 # Lamda  is a function that is defined without a name.
 # RunnableLambda is a task that is defined without a name.
 # lambda is a function her  that takes x as input and returns prompt_template.format_prompt(**x)
+# The format_prompt(**x) method call means that the x argument is being unpacked into keyword arguments. The double asterisk (**) operator unpacks the dictionary x, allowing you to pass its key-value pairs as keyword arguments to the format_prompt method.
+#  Keyward Arguments 
+#  greet(age=28, name="Charlie")  # age and name are keyword arguments
 format_prompt = RunnableLambda(lambda x: prompt_template.format_prompt(**x))
 invoke_model = RunnableLambda(lambda x: model.invoke(x.to_messages()))
 parse_output = RunnableLambda(lambda x: x.content)

@@ -32,6 +32,12 @@ count_words = RunnableLambda(lambda x: f"Word count: {len(x.split())}\n{x}")
 # 1. RunnableLambda(lambda x: x.upper())
 # 2. RunnableLambda(lambda x: f"Word count: {len(x.split())}\n{x}")
 
+# len(x.split()):
+# x.split() splits the string x into a list of words by default (it splits by whitespace unless
+# specified otherwise).
+# len(x.split()) calculates the number of elements in the list, which is effectively the word 
+# count in the string x.
+
 
 # Create the combined chain using LangChain Expression Language (LCEL)
 chain = prompt_template | model | StrOutputParser() | uppercase_output | count_words
