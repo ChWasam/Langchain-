@@ -12,7 +12,7 @@ print("-----Prompt from Template-----")
 prompt = prompt_template.invoke({"topic": "cats"})
 print(prompt)
 
-# # PART 2: Prompt with Multiple Placeholders
+# PART 2: Prompt with Multiple Placeholders
 # template_multiple = """You are a helpful assistant.
 # Human: Tell me a {adjective} story about a {animal}.
 # Assistant:"""
